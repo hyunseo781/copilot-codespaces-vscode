@@ -1,6 +1,115 @@
-<header>
+<<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모바일 ID 카드</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="id-card">
+    <img class="logo" src="government_logo.png" alt="정부24">
+    <div class="personal-info">
+      <h1>조현서</h1>
+      <p>아이디 번호: 1234567890</p>
+      <p>생년월일: 2004년 08월 01일</p>
+      <p>만료일: 2030년 01월 01일</p>
+    </div>
+    <div class="profile-picture">
+      <img src="profile_picture.jpg" alt="
 
-<!--
+">
+    </div>
+    <div class="qr-code">
+      <img src="qr_code.png" alt="QR 코드">
+    </div>
+  </div>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+.id-card {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.personal-info {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-picture img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: block;
+}
+
+.qr-code img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 20px auto;
+}
+
+import SwiftUI
+
+struct IDCardView: View {
+    var idCard: IDCard  // IDCard는 모델로 정의해야 합니다.
+    
+    var body: some View {
+        VStack {
+            Image("government_logo")  // 
+
+                .resizable()
+                .frame(width: 50, height: 50)
+            
+            Text(idCard.name)  // 사용자 이름
+                .font(.title)
+            
+            Text("아이디: \(idCard.idNumber)")  // 아이디 번호
+            Text("생년월일: \(idCard.birthDate)")  // 생년월일
+            Text("만료일: \(idCard.expiryDate)")  // 만료일
+            
+            Image(uiImage: idCard.profileImage)  // 프로필 이미지
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+            
+            Image(uiImage: idCard.qrCode)  // QR 코드
+                .resizable()
+                .frame(width: 100, height: 100)
+        }
+        .padding()
+    }
+}
+
+struct IDCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        IDCardView(idCard: IDCard(name: "조현서", idNumber: "1234567890", birthDate: "2004-08-01", expiryDate: "2030-01-01", profileImage: UIImage(named: "profile_picture.jpg")!, qrCode: UIImage(named: "qr_code.png")!))
+    }
+}
+
   <<< Author notes: Course header >>>
   Read <https://skills.github.com/quickstart> for more information about how to build courses using this template.
   Include a 1280×640 image, course name in sentence case, and a concise description in emphasis.
